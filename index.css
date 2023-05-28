@@ -18,7 +18,7 @@ body {
     font-family: 'Poppins';
     background-size: cover;
     background-repeat: repeat-y;
-    background-image: url('images/moviepitch2.jpg');
+    background-image: url('images/moviepitch3.jpg');
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -43,7 +43,7 @@ p {
 /* Sections */
 
 header {
-    background-color: var(--dark);
+    background-color: #8294C4;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -245,7 +245,7 @@ img.loading {
 /* Footer  */
 
 footer {
-    background-color: var(--dark);
+    background-color: #146C94;
     color: var(--light);
     padding: .8em;
     font-size: .7em;
