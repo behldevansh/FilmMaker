@@ -2,7 +2,7 @@ import { process } from '/env'
 import { Configuration, OpenAIApi } from 'openai'
 
 const setupInputContainer = document.getElementById('setup-input-container')
-const movieBossText = document.getElementById('movie-boss-text')
+const storyText = document.getElementById('story-boss-text')
 
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY
@@ -15,7 +15,7 @@ document.getElementById("send-btn").addEventListener("click", () => {
   if (setupTextarea.value) {
     const userInput = setupTextarea.value
     setupInputContainer.innerHTML = `<img src="images/loading.svg" class="loading" id="loading">`
-    movieBossText.innerText = `Ok, just wait a second while my digital brain digests that...`
+    storyText.innerText = `Ok, just wait a second while my digital brain digests that...`
     fetchBotReply(userInput)
     fetchSynopsis(userInput)
   }
@@ -40,7 +40,7 @@ async function fetchBotReply(outline) {
     `,
     max_tokens: 60 
   })
-  movieBossText.innerText = response.data.choices[0].text.trim()
+  storyText.innerText = response.data.choices[0].text.trim()
 } 
 
 async function fetchSynopsis(outline) {
@@ -65,7 +65,7 @@ async function fetchSynopsis(outline) {
 async function fetchTitle(synopsis) {
   const response = await openai.createCompletion({
     model: 'text-davinci-003',
-    prompt: `Generate a catchy movie title for this synopsis: ${synopsis}`,
+    prompt: `Generate a catchy story title for this synopsis: ${synopsis}`,
     max_tokens: 25,
     temperature: 0.7
   })
@@ -93,7 +93,7 @@ async function fetchStars(synopsis){
 async function fetchImagePromt(title, synopsis){
   const response = await openai.createCompletion({
     model: 'text-davinci-003',
-    prompt: `Give a short description of an image which could be used to advertise a movie based on a title and synopsis. The description should be rich in visual detail but contain no names.
+    prompt: `Give a short description of an image which could be used to advertise a story based on a title and synopsis. The description should be rich in visual detail but contain no names.
     ###
     title: Love's Time Warp
     synopsis: When scientist and time traveller Wendy (Emma Watson) is sent back to the 1920s to assassinate a future dictator, she never expected to fall in love with them. As Wendy infiltrates the dictator's inner circle, she soon finds herself torn between her mission and her growing feelings for the leader (Brie Larson). With the help of a mysterious stranger from the future (Josh Brolin), Wendy must decide whether to carry out her mission or follow her heart. But the choices she makes in the 1920s will have far-reaching consequences that reverberate through the ages.
@@ -121,10 +121,10 @@ async function fetchImageUrl(imagePrompt){
     response_format: 'b64_json' 
   })
   document.getElementById('output-img-container').innerHTML = `<img src="data:image/png;base64,${response.data.data[0].b64_json}">`
-  setupInputContainer.innerHTML = `<button id="view-pitch-btn" class="view-pitch-btn">View Pitch</button>`
+  setupInputContainer.innerHTML = `<button id="view-pitch-btn" class="view-pitch-btn">View Story-line</button>`
   document.getElementById('view-pitch-btn').addEventListener('click', ()=>{
     document.getElementById('setup-container').style.display = 'none'
     document.getElementById('output-container').style.display = 'flex'
-    movieBossText.innerText = `This idea is so good I'm jealous! It's gonna make you rich for sure! Remember, I want 10% 💰`
+    storyText.innerText = `This idea is so good I'm jealous! It's gonna make you rich for sure! Remember, I want 10% 💰`
   })
 }
