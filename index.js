@@ -128,3 +128,6 @@ async function fetchImageUrl(imagePrompt){
     storyText.innerText = `This idea is so good I'm jealous! It's gonna make you rich for sure! Remember, I want 10% 💰`
   })
 }
+
+
+
